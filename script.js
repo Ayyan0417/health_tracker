@@ -1,3 +1,11 @@
+function setTheme(theme) {
+  document.body.className = theme;
+  localStorage.setItem("theme", theme);
+}
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) document.body.className = savedTheme;
+
 const form = document.getElementById("healthForm");
 const records = document.getElementById("records");
 
