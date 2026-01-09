@@ -195,3 +195,35 @@ function updateCalendar() {
     list.appendChild(li);
   });
 }
+function signup() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => alert("Account created"))
+    .catch(err => alert(err.message));
+}
+
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .catch(err => alert(err.message));
+}
+
+function logout() {
+  auth.signOut();
+}
+auth.onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("logoutSection").style.display = "block";
+    document.getElementById("userEmail").textContent = "Logged in as: " + user.email;
+
+    loadUserData(user.uid);
+  } else {
+    document.getElementById("loginSection").style.display = "block";
+    document.getElementById("logoutSection").style.display = "none";
+  }
+});
