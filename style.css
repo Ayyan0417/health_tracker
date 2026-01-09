@@ -1,3 +1,81 @@
+/* ===== BRAND FOUNDATION ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #F8FAFC;
+  color: #0F172A;
+}
+
+/* ===== HEADER ===== */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 22px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* NAVIGATION */
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #64748B;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.nav-links a:hover {
+  color: #0F172A;
+}
+
+.nav-links a.active {
+  color: #3B82F6;
+  border-bottom: 2px solid #3B82F6;
+}
+
+/* HEADER ACTIONS */
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.theme-btn {
+  border: none;
+  background: #F1F5F9;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.theme-btn:hover {
+  background: #E2E8F0;
+}
+
 :root {
   --bg: #f6f7f9;
   --card: #ffffff;
