@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Health Catalogue</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1>📁 Health Catalogue</h1>
+  <nav>
+    <a href="index.html">Dashboard</a> |
+    <a href="catalogue.html">Catalogue</a> |
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<section class="card">
+  <h2>All Health Records</h2>
+
+  <button onclick="exportCSV()" class="primary-btn">📥 Export CSV</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Weight</th>
+        <th>Steps</th>
+        <th>Water</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="records"></tbody>
+  </table>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
