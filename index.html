@@ -35,20 +35,28 @@
   </section>
 
   <!-- DASHBOARD -->
-  <section class="dashboard">
-    <div class="stat-card">
-      <h3>Avg Weight</h3>
-      <p id="avgWeight">–</p>
-    </div>
-    <div class="stat-card">
-      <h3>Avg Steps</h3>
-      <p id="avgSteps">–</p>
-    </div>
-    <div class="stat-card">
-      <h3>Avg Water</h3>
-      <p id="avgWater">–</p>
-    </div>
-  </section>
+<section class="dashboard">
+
+  <div class="stat-card">
+    <h3>Steps</h3>
+    <p id="avgSteps">–</p>
+    <small>Goal: <span id="stepsGoalText">0</span></small>
+  </div>
+
+  <div class="stat-card">
+    <h3>Water</h3>
+    <p id="avgWater">–</p>
+    <small>Goal: <span id="waterGoalText">0</span> L</small>
+  </div>
+
+  <div class="stat-card">
+    <h3>Set Goals</h3>
+    <input type="number" id="stepsGoal" placeholder="Steps goal">
+    <input type="number" id="waterGoal" placeholder="Water goal (L)">
+    <button onclick="saveGoals()">Save</button>
+  </div>
+
+</section>
 
   <!-- CHARTS -->
   <section class="card">
