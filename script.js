@@ -135,3 +135,18 @@ function updateGoalsUI() {
 
 showData();
 updateGoalsUI();
+
+function exportCSV() {
+  let csv = "Date,Weight,Steps,Water\n";
+  data.forEach(d => {
+    csv += `${d.date},${d.weight},${d.steps},${d.water}\n`;
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "health-data.csv";
+  a.click();
+}
