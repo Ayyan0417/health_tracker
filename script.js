@@ -21,6 +21,11 @@ const avgWaterEl = document.getElementById("avgWater");
 let data = JSON.parse(localStorage.getItem("healthData")) || [];
 let editIndex = null;
 
+let goals = JSON.parse(localStorage.getItem("goals")) || {
+  steps: 0,
+  water: 0
+};
+
 let weightChart, stepsChart, waterChart;
 
 function showData() {
@@ -116,4 +121,17 @@ function drawCharts() {
   });
 }
 
+function saveGoals() {
+  goals.steps = Number(document.getElementById("stepsGoal").value);
+  goals.water = Number(document.getElementById("waterGoal").value);
+  localStorage.setItem("goals", JSON.stringify(goals));
+  updateGoalsUI();
+}
+
+function updateGoalsUI() {
+  document.getElementById("stepsGoalText").textContent = goals.steps;
+  document.getElementById("waterGoalText").textContent = goals.water;
+}
+
 showData();
+updateGoalsUI();
