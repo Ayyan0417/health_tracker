@@ -1,44 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Health Tracker</title>
+  <meta charset="UTF-8">
+  <title>Health Tracker</title>
+
+  <!-- Google Font (FREE) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<h1>🩺 My Health Tracker</h1>
+  <!-- HEADER -->
+  <header class="app-header">
+    <h1>🩺 Health Tracker</h1>
+    <div class="theme-buttons">
+      <button onclick="setTheme('light')">☀️</button>
+      <button onclick="setTheme('blue')">💧</button>
+      <button onclick="setTheme('dark')">🌙</button>
+    </div>
+  </header>
 
-<form id="healthForm">
-  <input type="date" id="date" required>
-  <input type="number" id="weight" placeholder="Weight (kg)">
-  <input type="number" id="steps" placeholder="Steps">
-  <input type="number" id="water" placeholder="Water (liters)">
-  <button type="submit">Save</button>
-</form>
+  <!-- INPUT CARD -->
+  <section class="card">
+    <form id="healthForm" class="form-grid">
+      <input type="date" id="date" required>
+      <input type="number" id="weight" placeholder="Weight (kg)">
+      <input type="number" id="steps" placeholder="Steps">
+      <input type="number" id="water" placeholder="Water (liters)">
+      <button type="submit" class="primary-btn">Save</button>
+    </form>
+  </section>
 
-<h2>📊 Records</h2>
+  <!-- DASHBOARD -->
+  <section class="dashboard">
+    <div class="stat-card">
+      <h3>Avg Weight</h3>
+      <p id="avgWeight">–</p>
+    </div>
+    <div class="stat-card">
+      <h3>Avg Steps</h3>
+      <p id="avgSteps">–</p>
+    </div>
+    <div class="stat-card">
+      <h3>Avg Water</h3>
+      <p id="avgWater">–</p>
+    </div>
+  </section>
 
-<table>
-  <tr>
-  <th>Date</th>
-  <th>Weight</th>
-  <th>Steps</th>
-  <th>Water</th>
-  <th>Action</th>
-</tr>
+  <!-- CHARTS -->
+  <section class="card">
+    <canvas id="weightChart"></canvas>
+  </section>
 
-  <tbody id="records"></tbody>
-</table>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <section class="card">
+    <canvas id="stepsChart"></canvas>
+  </section>
 
-<h2 style="text-align:center;">📊 Health Charts</h2>
+  <section class="card">
+    <canvas id="waterChart"></canvas>
+  </section>
 
-<canvas id="weightChart"></canvas>
-<br>
-<canvas id="stepsChart"></canvas>
-<br>
-<canvas id="waterChart"></canvas>
+  <!-- RECORDS -->
+  <section class="card">
+    <h2>Records</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Weight</th>
+          <th>Steps</th>
+          <th>Water</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="records"></tbody>
+    </table>
+  </section>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
