@@ -1,6 +1,11 @@
 const form = document.getElementById("healthForm");
 const records = document.getElementById("records");
 
+const dateInput = document.getElementById("date");
+const weightInput = document.getElementById("weight");
+const stepsInput = document.getElementById("steps");
+const waterInput = document.getElementById("water");
+
 let data = JSON.parse(localStorage.getItem("healthData")) || [];
 
 function showData() {
@@ -17,14 +22,14 @@ function showData() {
   });
 }
 
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const entry = {
-    date: date.value,
-    weight: weight.value,
-    steps: steps.value,
-    water: water.value
+    date: dateInput.value,
+    weight: weightInput.value,
+    steps: stepsInput.value,
+    water: waterInput.value
   };
 
   data.push(entry);
