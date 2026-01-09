@@ -89,6 +89,9 @@ function saveAndRefresh() {
   localStorage.setItem("healthData", JSON.stringify(data));
   showData();
 }
+if (auth.currentUser) {
+  saveUserData(auth.currentUser.uid);
+}
 
 function updateStats() {
   const avg = (arr) => arr.length ? Math.round(arr.reduce((a,b)=>a+b,0)/arr.length) : "–";
@@ -227,3 +230,18 @@ auth.onAuthStateChanged(user => {
     document.getElementById("logoutSection").style.display = "none";
   }
 });
+function saveUserData(uid) {
+  db.collection("users").doc(uid).set({
+    healthData: data,
+    goals: goals
+  });
+}
+function loadUserData(uid) {
+  db.collection("users").doc(uid).get().then(doc => {
+    if (doc.exists) {
+      data = doc.data().healthData || [];
+      goals = doc.data().goals || goals;
+      showData();
+    }
+  });
+}
