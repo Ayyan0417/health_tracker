@@ -1,140 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
   <meta charset="UTF-8">
+  <title>HealthSpace</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Manifest -->
   <link rel="manifest" href="manifest.json">
 
-  <title>Health Tracker</title>
-
-  <!-- Google Font (FREE) -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-<section class="card" id="loginSection">
-  <h2>Login</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <button onclick="signup()">Sign Up</button>
-</section>
 
-<section class="card" id="logoutSection" style="display:none;">
-  <p id="userEmail"></p>
-  <button onclick="logout()">Logout</button>
-</section>
-
-  <!-- HEADER -->
-  <header class="top-header">
-  <div class="logo">
-    <span class="logo-icon">❤️</span>
-    <span class="logo-text">VitalTrack</span>
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">💙</span>
+    <span class="logo-text">HealthSpace</span>
   </div>
 
-  <nav class="nav-links">
-    <a href="index.html" class="active">Dashboard</a>
-    <a href="catalogue.html">Catalogue</a>
-    <a href="about.html">About</a>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" onclick="showSection('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-text">Home</span>
+    </button>
+
+    <button class="nav-item" onclick="showSection('dashboard')">
+      <span class="nav-icon">📊</span>
+      <span class="nav-text">Dashboard</span>
+    </button>
+
+    <button class="nav-item" onclick="showSection('catalogue')">
+      <span class="nav-icon">📁</span>
+      <span class="nav-text">Catalogue</span>
+    </button>
+
+    <button class="nav-item" onclick="showSection('settings')">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-text">Settings</span>
+    </button>
+
+    <button class="nav-item" onclick="showSection('about')">
+      <span class="nav-icon">ℹ️</span>
+      <span class="nav-text">About</span>
+    </button>
   </nav>
+</aside>
 
-  <div class="header-actions">
-    <button class="theme-btn">🌙</button>
-  </div>
-</header>
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main-content">
 
+  <!-- ===== HOME / ABOUT FIRST VIEW ===== -->
+  <section id="home" class="page active">
+    <h1>Track your health. Understand your habits.</h1>
+    <p class="subtitle">
+      HealthSpace is a fresh, privacy-first health tracking website that helps you
+      monitor daily activity, visualize progress, and stay in control of your data.
+    </p>
 
-  <!-- INPUT CARD -->
-  <section class="card">
-    <form id="healthForm" class="form-grid">
-      <input type="date" id="date" required>
-      <input type="number" id="weight" placeholder="Weight (kg)">
-      <input type="number" id="steps" placeholder="Steps">
-      <input type="number" id="water" placeholder="Water (liters)">
-      <button type="submit" class="primary-btn">Save</button>
-    </form>
+    <div class="info-cards">
+      <div class="info-card">📊 Track daily steps, water & weight</div>
+      <div class="info-card">🎯 Set personal health goals</div>
+      <div class="info-card">📈 Visualize progress with charts</div>
+      <div class="info-card">🔒 Your data stays private</div>
+    </div>
   </section>
 
-  <!-- DASHBOARD -->
-<section class="dashboard">
+  <!-- ===== DASHBOARD ===== -->
+  <section id="dashboard" class="page">
+    <h2>Dashboard</h2>
 
-  <div class="stat-card">
-    <h3>Steps</h3>
-    <p id="avgSteps">–</p>
-    <small>Goal: <span id="stepsGoalText">0</span></small>
-  </div>
+    <section class="card">
+      <form id="healthForm" class="form-grid">
+        <input type="date" id="date" required>
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <input type="number" id="steps" placeholder="Steps">
+        <input type="number" id="water" placeholder="Water (liters)">
+        <button type="submit" class="primary-btn">Save</button>
+      </form>
+    </section>
 
-  <section class="card">
-  <h2>🤖 Health Insights</h2>
-  <p id="insightText">No insights yet.</p>
-</section>
+    <section class="dashboard">
+      <div class="stat-card">
+        <h3>Steps</h3>
+        <p id="avgSteps">–</p>
+      </div>
 
-  <div class="stat-card">
-    <h3>Water</h3>
-    <p id="avgWater">–</p>
-    <small>Goal: <span id="waterGoalText">0</span> L</small>
-  </div>
+      <div class="stat-card">
+        <h3>Water</h3>
+        <p id="avgWater">–</p>
+      </div>
 
-  <div class="stat-card">
-    <h3>Set Goals</h3>
-    <input type="number" id="stepsGoal" placeholder="Steps goal">
-    <input type="number" id="waterGoal" placeholder="Water goal (L)">
-    <button onclick="saveGoals()">Save</button>
-  </div>
+      <div class="stat-card">
+        <h3>Weight</h3>
+        <p id="avgWeight">–</p>
+      </div>
+    </section>
 
-</section>
+    <section class="card">
+      <h2>🤖 Health Insight</h2>
+      <p id="insightText">No insights yet.</p>
+    </section>
 
-  <!-- CHARTS -->
-  <section class="card">
-    <canvas id="weightChart"></canvas>
+    <section class="card"><canvas id="weightChart"></canvas></section>
+    <section class="card"><canvas id="stepsChart"></canvas></section>
+    <section class="card"><canvas id="waterChart"></canvas></section>
   </section>
 
-  <section class="card">
-    <canvas id="stepsChart"></canvas>
+  <!-- ===== CATALOGUE ===== -->
+  <section id="catalogue" class="page">
+    <h2>Health Catalogue</h2>
+
+    <button onclick="exportCSV()" class="primary-btn">📥 Export CSV</button>
+
+    <section class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weight</th>
+            <th>Steps</th>
+            <th>Water</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="records"></tbody>
+      </table>
+    </section>
   </section>
 
-  <section class="card">
-    <canvas id="waterChart"></canvas>
+  <!-- ===== SETTINGS ===== -->
+  <section id="settings" class="page">
+    <h2>Settings</h2>
+
+    <section class="card">
+      <h3>Login</h3>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()" class="primary-btn">Login</button>
+      <button onclick="signup()">Sign Up</button>
+      <button onclick="logout()">Logout</button>
+      <p id="userEmail"></p>
+    </section>
+
+    <section class="card">
+      <h3>Goals</h3>
+      <input type="number" id="stepsGoal" placeholder="Steps goal">
+      <input type="number" id="waterGoal" placeholder="Water goal (L)">
+      <button onclick="saveGoals()" class="primary-btn">Save Goals</button>
+    </section>
+
+    <section class="card">
+      <button onclick="enableReminder()" class="primary-btn">
+        ⏰ Enable Daily Reminder
+      </button>
+    </section>
   </section>
 
-  <section class="card">
-  <h2>📅 Calendar (Simple)</h2>
-  <ul id="calendarList"></ul>
-</section>
-
-
-  <button onclick="exportCSV()" class="primary-btn">
-  📥 Export CSV
-</button>
-
-  <button onclick="enableReminder()" class="primary-btn">
-  ⏰ Enable Daily Reminder
-</button>
-
-
-  <!-- RECORDS -->
-  <section class="card">
-    <h2>Records</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Weight</th>
-          <th>Steps</th>
-          <th>Water</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="records"></tbody>
-    </table>
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="page">
+    <h2>About HealthSpace</h2>
+    <p>
+      HealthSpace is designed to help users build healthy habits using a simple,
+      modern, and private interface. No ads. No tracking. Just you and your data.
+    </p>
   </section>
+
+</main>
+
+<!-- ===== FIREBASE CONFIG ===== -->
 <script>
   const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
@@ -150,6 +196,17 @@
   const db = firebase.firestore();
 </script>
 
-  <script src="script.js"></script>
+<!-- ===== SECTION SWITCH SCRIPT ===== -->
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+</script>
+
+<script src="script.js"></script>
+
 </body>
 </html>
