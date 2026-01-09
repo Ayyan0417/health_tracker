@@ -171,3 +171,15 @@ function generateInsights() {
 
   document.getElementById("insightText").textContent = message;
 }
+function enableReminder() {
+  if (!("Notification" in window)) {
+    alert("Notifications not supported");
+    return;
+  }
+
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      alert("Reminder enabled! (Browser must stay open)");
+    }
+  });
+}
