@@ -136,6 +136,8 @@ function updateGoalsUI() {
 showData();
 generateInsights();
 updateGoalsUI();
+updateCalendar();
+
 
 function exportCSV() {
   let csv = "Date,Weight,Steps,Water\n";
@@ -181,5 +183,15 @@ function enableReminder() {
     if (permission === "granted") {
       alert("Reminder enabled! (Browser must stay open)");
     }
+  });
+}
+function updateCalendar() {
+  const list = document.getElementById("calendarList");
+  list.innerHTML = "";
+
+  data.forEach(d => {
+    const li = document.createElement("li");
+    li.textContent = `${d.date} → Steps: ${d.steps}, Water: ${d.water}`;
+    list.appendChild(li);
   });
 }
