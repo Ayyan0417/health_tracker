@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Health Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🩺 My Health Tracker</h1>
+
+<form id="healthForm">
+  <input type="date" id="date" required>
+  <input type="number" id="weight" placeholder="Weight (kg)">
+  <input type="number" id="steps" placeholder="Steps">
+  <input type="number" id="water" placeholder="Water (liters)">
+  <button type="submit">Save</button>
+</form>
+
+<h2>📊 Records</h2>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Weight</th>
+    <th>Steps</th>
+    <th>Water</th>
+  </tr>
+  <tbody id="records"></tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
