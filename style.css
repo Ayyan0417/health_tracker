@@ -103,3 +103,46 @@ body.dark {
   --text: #f1f5f9;
   --primary: #38bdf8;
 }
+/* MOBILE OPTIMIZATION */
+@media (max-width: 768px) {
+
+  .app-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .theme-buttons button {
+    font-size: 18px;
+    padding: 10px 14px;
+  }
+
+  .card {
+    margin: 12px;
+    padding: 16px;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card p {
+    font-size: 28px;
+  }
+
+  input, .primary-btn {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  canvas {
+    max-height: 260px;
+  }
+}
