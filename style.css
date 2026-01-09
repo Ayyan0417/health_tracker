@@ -1,32 +1,105 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #111;
+  --primary: #000;
+}
+
 body {
-  font-family: Arial;
-  background: #f0f4f8;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* HEADER */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
 }
 
-h1, h2 {
+.theme-buttons button {
+  margin-left: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  margin: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* FORM */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* DASHBOARD */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 16px;
+}
+
+.stat-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 16px;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-form {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+.stat-card p {
+  font-size: 24px;
+  font-weight: 700;
 }
 
-input, button {
-  padding: 8px;
-}
-
+/* TABLE */
 table {
   width: 100%;
-  background: white;
   border-collapse: collapse;
 }
 
 th, td {
-  border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* THEMES */
+body.blue {
+  --bg: #eef6ff;
+  --card: #ffffff;
+  --text: #003366;
+  --primary: #0077ff;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --primary: #38bdf8;
 }
