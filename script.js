@@ -8,6 +8,8 @@ const waterInput = document.getElementById("water");
 
 let data = JSON.parse(localStorage.getItem("healthData")) || [];
 
+let weightChart, stepsChart, waterChart;
+
 function showData() {
   records.innerHTML = "";
 
@@ -18,12 +20,12 @@ function showData() {
         <td>${item.weight || "-"}</td>
         <td>${item.steps || "-"}</td>
         <td>${item.water || "-"}</td>
-        <td>
-          <button onclick="deleteRecord(${index})">❌ Delete</button>
-        </td>
+        <td><button onclick="deleteRecord(${index})">❌</button></td>
       </tr>
     `;
   });
+
+  drawCharts();
 }
 
 function deleteRecord(index) {
@@ -37,9 +39,9 @@ form.addEventListener("submit", function (e) {
 
   const entry = {
     date: dateInput.value,
-    weight: weightInput.value,
-    steps: stepsInput.value,
-    water: waterInput.value
+    weight: Number(weightInput.value),
+    steps: Number(stepsInput.value),
+    water: Number(waterInput.value)
   };
 
   data.push(entry);
@@ -47,5 +49,55 @@ form.addEventListener("submit", function (e) {
   showData();
   form.reset();
 });
+
+function drawCharts() {
+  const dates = data.map(d => d.date);
+  const weights = data.map(d => d.weight);
+  const steps = data.map(d => d.steps);
+  const water = data.map(d => d.water);
+
+  if (weightChart) weightChart.destroy();
+  if (stepsChart) stepsChart.destroy();
+  if (waterChart) waterChart.destroy();
+
+  weightChart = new Chart(document.getElementById("weightChart"), {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [{
+        label: "Weight (kg)",
+        data: weights,
+        borderColor: "blue",
+        fill: false
+      }]
+    }
+  });
+
+  stepsChart = new Chart(document.getElementById("stepsChart"), {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [{
+        label: "Steps",
+        data: steps,
+        borderColor: "green",
+        fill: false
+      }]
+    }
+  });
+
+  waterChart = new Chart(document.getElementById("waterChart"), {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [{
+        label: "Water (liters)",
+        data: water,
+        borderColor: "purple",
+        fill: false
+      }]
+    }
+  });
+}
 
 showData();
