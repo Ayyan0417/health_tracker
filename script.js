@@ -134,6 +134,7 @@ function updateGoalsUI() {
 }
 
 showData();
+generateInsights();
 updateGoalsUI();
 
 function exportCSV() {
@@ -149,4 +150,24 @@ function exportCSV() {
   a.href = url;
   a.download = "health-data.csv";
   a.click();
+}
+function generateInsights() {
+  if (data.length === 0) return;
+
+  const last = data[data.length - 1];
+  let message = "";
+
+  if (goals.steps && last.steps < goals.steps) {
+    message += "🚶 Try to walk more to reach your step goal. ";
+  }
+
+  if (goals.water && last.water < goals.water) {
+    message += "💧 You should drink more water today. ";
+  }
+
+  if (!message) {
+    message = "✅ Great job! You're meeting your health goals.";
+  }
+
+  document.getElementById("insightText").textContent = message;
 }
