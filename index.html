@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta charset="UTF-8">
   <title>HealthSpace</title>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <!-- Manifest -->
-  <link rel="manifest" href="manifest.json">
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -28,35 +19,29 @@
 <!-- ========== SIDEBAR ========== -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-   <img src="logo.svg" alt="HealthSpace Logo" width="34" height="34">
-
+    <img src="logo.svg" alt="HealthSpace Logo" width="34" height="34">
     <span class="logo-text">HealthSpace</span>
   </div>
 
   <nav class="sidebar-nav">
-    <button class="nav-item active" onclick="showSection('home')">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-text">Home</span>
+    <button class="nav-item active" onclick="showSection('home', this)">
+      <span>🏠</span> Home
     </button>
 
-    <button class="nav-item" onclick="showSection('dashboard')">
-      <span class="nav-icon">📊</span>
-      <span class="nav-text">Dashboard</span>
+    <button class="nav-item" onclick="showSection('dashboard', this)">
+      <span>📊</span> Dashboard
     </button>
 
-    <button class="nav-item" onclick="showSection('catalogue')">
-      <span class="nav-icon">📁</span>
-      <span class="nav-text">Catalogue</span>
+    <button class="nav-item" onclick="showSection('catalogue', this)">
+      <span>📁</span> Catalogue
     </button>
 
-    <button class="nav-item" onclick="showSection('settings')">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-text">Settings</span>
+    <button class="nav-item" onclick="showSection('settings', this)">
+      <span>⚙️</span> Settings
     </button>
 
-    <button class="nav-item" onclick="showSection('about')">
-      <span class="nav-icon">ℹ️</span>
-      <span class="nav-text">About</span>
+    <button class="nav-item" onclick="showSection('about', this)">
+      <span>ℹ️</span> About
     </button>
   </nav>
 </aside>
@@ -64,7 +49,7 @@
 <!-- ========== MAIN CONTENT ========== -->
 <main class="main-content">
 
-  <!-- ===== HOME / ABOUT FIRST VIEW ===== -->
+  <!-- HOME -->
   <section id="home" class="page active">
     <h1>Track your health. Understand your habits.</h1>
     <p class="subtitle">
@@ -73,14 +58,14 @@
     </p>
 
     <div class="info-cards">
-      <div class="info-card">📊 Track daily steps, water & weight</div>
-      <div class="info-card">🎯 Set personal health goals</div>
-      <div class="info-card">📈 Visualize progress with charts</div>
+      <div class="info-card">📊 Track steps, water & weight</div>
+      <div class="info-card">🎯 Set personal goals</div>
+      <div class="info-card">📈 Visualize progress</div>
       <div class="info-card">🔒 Your data stays private</div>
     </div>
   </section>
 
-  <!-- ===== DASHBOARD ===== -->
+  <!-- DASHBOARD -->
   <section id="dashboard" class="page">
     <h2>Dashboard</h2>
 
@@ -112,20 +97,14 @@
     </section>
 
     <section class="card">
-      <h2>🤖 Health Insight</h2>
+      <h3>Health Insight</h3>
       <p id="insightText">No insights yet.</p>
     </section>
-
-    <section class="card"><canvas id="weightChart"></canvas></section>
-    <section class="card"><canvas id="stepsChart"></canvas></section>
-    <section class="card"><canvas id="waterChart"></canvas></section>
   </section>
 
-  <!-- ===== CATALOGUE ===== -->
+  <!-- CATALOGUE -->
   <section id="catalogue" class="page">
-    <h2>Health Catalogue</h2>
-
-    <button onclick="exportCSV()" class="primary-btn">📥 Export CSV</button>
+    <h2>Catalogue</h2>
 
     <section class="card">
       <table>
@@ -143,19 +122,9 @@
     </section>
   </section>
 
-  <!-- ===== SETTINGS ===== -->
+  <!-- SETTINGS -->
   <section id="settings" class="page">
     <h2>Settings</h2>
-
-    <section class="card">
-      <h3>Login</h3>
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="login()" class="primary-btn">Login</button>
-      <button onclick="signup()">Sign Up</button>
-      <button onclick="logout()">Logout</button>
-      <p id="userEmail"></p>
-    </section>
 
     <section class="card">
       <h3>Goals</h3>
@@ -163,51 +132,20 @@
       <input type="number" id="waterGoal" placeholder="Water goal (L)">
       <button onclick="saveGoals()" class="primary-btn">Save Goals</button>
     </section>
-
-    <section class="card">
-      <button onclick="enableReminder()" class="primary-btn">
-        ⏰ Enable Daily Reminder
-      </button>
-    </section>
   </section>
 
-  <!-- ===== ABOUT ===== -->
+  <!-- ABOUT -->
   <section id="about" class="page">
     <h2>About HealthSpace</h2>
     <p>
-      HealthSpace is designed to help users build healthy habits using a simple,
-      modern, and private interface. No ads. No tracking. Just you and your data.
+      HealthSpace is a modern health tracking website designed to help users
+      build healthy habits using a clean, simple, and privacy-first interface.
     </p>
   </section>
 
 </main>
 
-<!-- ===== FIREBASE CONFIG ===== -->
-<script>
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-</script>
-
-<!-- ===== SECTION SWITCH SCRIPT ===== -->
-<script>
-  function showSection(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    event.currentTarget.classList.add('active');
-  }
-</script>
-
+<!-- SCRIPT -->
 <script src="script.js"></script>
 
 </body>
