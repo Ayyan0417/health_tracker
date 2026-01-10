@@ -1,12 +1,30 @@
-const buttons = document.querySelectorAll(".nav");
+const navButtons = document.querySelectorAll(".nav");
 const pages = document.querySelectorAll(".page");
+const featureCards = document.querySelectorAll(".feature");
 
-buttons.forEach(btn => {
+function showPage(id) {
+  pages.forEach(p => p.classList.remove("show"));
+  navButtons.forEach(b => b.classList.remove("active"));
+
+  document.getElementById(id).classList.add("show");
+
+  navButtons.forEach(b => {
+    if (b.dataset.page === id) {
+      b.classList.add("active");
+    }
+  });
+}
+
+// Sidebar navigation
+navButtons.forEach(btn => {
   btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    pages.forEach(p => p.classList.remove("show"));
+    showPage(btn.dataset.page);
+  });
+});
 
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.page).classList.add("show");
+// Feature cards navigation (THIS WAS MISSING)
+featureCards.forEach(card => {
+  card.addEventListener("click", () => {
+    showPage(card.dataset.target);
   });
 });
