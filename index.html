@@ -1,100 +1,75 @@
-const navButtons = document.querySelectorAll(".nav");
-const pages = document.querySelectorAll(".page");
-const featureCards = document.querySelectorAll(".feature");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HealthSpace</title>
 
-function showPage(id) {
-  pages.forEach(p => p.classList.remove("show"));
-  navButtons.forEach(b => b.classList.remove("active"));
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-  document.getElementById(id).classList.add("show");
+<body>
 
-  navButtons.forEach(b => {
-    if (b.dataset.page === id) b.classList.add("active");
-  });
-}
+<div class="app">
 
-navButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    showPage(btn.dataset.page);
-  });
-});
+  <aside class="sidebar">
+    <div class="brand">💙 HealthSpace</div>
 
-featureCards.forEach(card => {
-  card.addEventListener("click", () => {
-    showPage(card.dataset.target);
-  });
-});
+    <button class="nav active" data-page="home">🏠 Home</button>
+    <button class="nav" data-page="dashboard">📊 Dashboard</button>
+    <button class="nav" data-page="catalogue">📁 Catalogue</button>
+    <button class="nav" data-page="settings">⚙️ Settings</button>
+    <button class="nav" data-page="about">ℹ️ About</button>
+  </aside>
 
-/* REAL TRACKING */
-let data = JSON.parse(localStorage.getItem("healthData")) || [];
-let goal = localStorage.getItem("goal") || null;
+  <main class="content">
 
-const form = document.getElementById("healthForm");
-const records = document.getElementById("records");
-const avgSteps = document.getElementById("avgSteps");
-const avgWeight = document.getElementById("avgWeight");
+    <section id="home" class="page show">
+      <h1>Track your health. Understand your habits.</h1>
+      <p class="lead">A modern, privacy-first health tracker.</p>
+    </section>
 
-const ctx = document.getElementById("stepsChart");
-let chart;
+    <section id="dashboard" class="page">
+      <h2>Dashboard</h2>
+      <form id="healthForm">
+        <input type="date" id="date" required>
+        <input type="number" id="steps" placeholder="Steps">
+        <input type="number" id="weight" placeholder="Weight">
+        <button type="submit">Save</button>
+      </form>
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
+      <p>Avg Steps: <span id="avgSteps">–</span></p>
+      <p>Avg Weight: <span id="avgWeight">–</span></p>
 
-  const entry = {
-    date: date.value,
-    steps: Number(steps.value),
-    weight: Number(weight.value)
-  };
+      <canvas id="stepsChart"></canvas>
+    </section>
 
-  data.push(entry);
-  localStorage.setItem("healthData", JSON.stringify(data));
-  updateUI();
-  form.reset();
-});
+    <section id="catalogue" class="page">
+      <h2>Catalogue</h2>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Steps</th><th>Weight</th></tr>
+        </thead>
+        <tbody id="records"></tbody>
+      </table>
+    </section>
 
-function updateUI() {
-  records.innerHTML = "";
-  data.forEach(d => {
-    records.innerHTML += `
-      <tr>
-        <td>${d.date}</td>
-        <td>${d.steps}</td>
-        <td>${d.weight}</td>
-      </tr>`;
-  });
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <input type="number" id="goalSteps" placeholder="Daily step goal">
+      <button id="saveGoal">Save Goal</button>
+      <p id="goalText"></p>
+    </section>
 
-  avgSteps.textContent = avg(data.map(d => d.steps));
-  avgWeight.textContent = avg(data.map(d => d.weight));
+    <section id="about" class="page">
+      <h2>About</h2>
+      <p>This is a demo health tracking app.</p>
+    </section>
 
-  drawChart();
-}
+  </main>
+</div>
 
-function avg(arr) {
-  return arr.length ? Math.round(arr.reduce((a,b)=>a+b)/arr.length) : "–";
-}
-
-function drawChart() {
-  if (chart) chart.destroy();
-
-  chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: data.map(d => d.date),
-      datasets: [{
-        data: data.map(d => d.steps),
-        borderColor: "#3b82f6"
-      }]
-    },
-    options: { responsive: true }
-  });
-}
-
-document.getElementById("saveGoal").onclick = () => {
-  goal = goalSteps.value;
-  localStorage.setItem("goal", goal);
-  goalText.textContent = `Daily step goal: ${goal}`;
-};
-
-if (goal) goalText.textContent = `Daily step goal: ${goal}`;
-
-updateUI();
+<script src="script.js"></script>
+</body>
+</html>
