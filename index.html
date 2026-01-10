@@ -1,152 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>HealthSpace</title>
-
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- ========== SIDEBAR ========== -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <img src="logo.svg" alt="HealthSpace Logo" width="34" height="34">
-    <span class="logo-text">HealthSpace</span>
-  </div>
+<div class="app">
 
-  <nav class="sidebar-nav">
-    <button class="nav-item active" onclick="showSection('home', this)">
-      <span>🏠</span> Home
-    </button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">💙 HealthSpace</div>
 
-    <button class="nav-item" onclick="showSection('dashboard', this)">
-      <span>📊</span> Dashboard
-    </button>
+    <button class="nav active" data-page="home">🏠 Home</button>
+    <button class="nav" data-page="dashboard">📊 Dashboard</button>
+    <button class="nav" data-page="catalogue">📁 Catalogue</button>
+    <button class="nav" data-page="settings">⚙️ Settings</button>
+    <button class="nav" data-page="about">ℹ️ About</button>
+  </aside>
 
-    <button class="nav-item" onclick="showSection('catalogue', this)">
-      <span>📁</span> Catalogue
-    </button>
+  <!-- MAIN -->
+  <main class="content">
 
-    <button class="nav-item" onclick="showSection('settings', this)">
-      <span>⚙️</span> Settings
-    </button>
+    <section id="home" class="page show">
+      <h1>Track your health. Understand your habits.</h1>
+      <p class="lead">
+        HealthSpace is a clean and modern health tracking website that helps you
+        monitor daily activity, visualize progress, and stay in control of your data.
+      </p>
 
-    <button class="nav-item" onclick="showSection('about', this)">
-      <span>ℹ️</span> About
-    </button>
-  </nav>
-</aside>
-
-<!-- ========== MAIN CONTENT ========== -->
-<main class="main-content">
-
-  <!-- HOME -->
-  <section id="home" class="page active">
-    <h1>Track your health. Understand your habits.</h1>
-    <p class="subtitle">
-      HealthSpace is a fresh, privacy-first health tracking website that helps you
-      monitor daily activity, visualize progress, and stay in control of your data.
-    </p>
-
-    <div class="info-cards">
-      <div class="info-card">📊 Track steps, water & weight</div>
-      <div class="info-card">🎯 Set personal goals</div>
-      <div class="info-card">📈 Visualize progress</div>
-      <div class="info-card">🔒 Your data stays private</div>
-    </div>
-  </section>
-
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="page">
-    <h2>Dashboard</h2>
-
-    <section class="card">
-      <form id="healthForm" class="form-grid">
-        <input type="date" id="date" required>
-        <input type="number" id="weight" placeholder="Weight (kg)">
-        <input type="number" id="steps" placeholder="Steps">
-        <input type="number" id="water" placeholder="Water (liters)">
-        <button type="submit" class="primary-btn">Save</button>
-      </form>
-    </section>
-
-    <section class="dashboard">
-      <div class="stat-card">
-        <h3>Steps</h3>
-        <p id="avgSteps">–</p>
-      </div>
-
-      <div class="stat-card">
-        <h3>Water</h3>
-        <p id="avgWater">–</p>
-      </div>
-
-      <div class="stat-card">
-        <h3>Weight</h3>
-        <p id="avgWeight">–</p>
+      <div class="cards">
+        <div class="card">📊 Track steps, water & weight</div>
+        <div class="card">🎯 Set health goals</div>
+        <div class="card">📈 View progress visually</div>
+        <div class="card">🔒 Privacy-first design</div>
       </div>
     </section>
 
-    <section class="card">
-      <h3>Health Insight</h3>
-      <p id="insightText">No insights yet.</p>
+    <section id="dashboard" class="page">
+      <h2>Dashboard</h2>
+      <div class="cards">
+        <div class="card">Steps: —</div>
+        <div class="card">Water: —</div>
+        <div class="card">Weight: —</div>
+      </div>
     </section>
-  </section>
 
-  <!-- CATALOGUE -->
-  <section id="catalogue" class="page">
-    <h2>Catalogue</h2>
-
-    <section class="card">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Weight</th>
-            <th>Steps</th>
-            <th>Water</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="records"></tbody>
-      </table>
+    <section id="catalogue" class="page">
+      <h2>Catalogue</h2>
+      <div class="card">Your saved health records will appear here.</div>
     </section>
-  </section>
 
-  <!-- SETTINGS -->
-  <section id="settings" class="page">
-    <h2>Settings</h2>
-
-    <section class="card">
-      <h3>Goals</h3>
-      <input type="number" id="stepsGoal" placeholder="Steps goal">
-      <input type="number" id="waterGoal" placeholder="Water goal (L)">
-      <button onclick="saveGoals()" class="primary-btn">Save Goals</button>
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <div class="card">Goals, preferences, and account settings.</div>
     </section>
-  </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="page">
-    <h2>About HealthSpace</h2>
-    <p>
-      HealthSpace is a modern health tracking website designed to help users
-      build healthy habits using a clean, simple, and privacy-first interface.
-    </p>
-  </section>
+    <section id="about" class="page">
+      <h2>About HealthSpace</h2>
+      <p class="lead">
+        HealthSpace is built to demonstrate modern UI design, clean layout,
+        and privacy-focused health tracking.
+      </p>
+    </section>
 
-</main>
+  </main>
+</div>
 
-<!-- SCRIPT -->
 <script src="script.js"></script>
-
 </body>
 </html>
