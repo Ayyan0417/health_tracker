@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>HealthSpace</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,9 +23,10 @@
     <button class="nav" data-page="about">ℹ️ About</button>
   </aside>
 
-  <!-- MAIN -->
+  <!-- MAIN CONTENT -->
   <main class="content">
 
+    <!-- HOME -->
     <section id="home" class="page show">
       <h1>Track your health. Understand your habits.</h1>
       <p class="lead">
@@ -33,43 +35,22 @@
       </p>
 
       <div class="cards">
-        <div class="card">📊 Track steps, water & weight</div>
-        <div class="card">🎯 Set health goals</div>
-        <div class="card">📈 View progress visually</div>
-        <div class="card">🔒 Privacy-first design</div>
+        <div class="card feature" data-target="dashboard">
+          📊 Track steps, water & weight
+        </div>
+        <div class="card feature" data-target="settings">
+          🎯 Set health goals
+        </div>
+        <div class="card feature" data-target="catalogue">
+          📈 View progress visually
+        </div>
+        <div class="card feature" data-target="about">
+          🔒 Privacy-first design
+        </div>
       </div>
     </section>
 
+    <!-- DASHBOARD -->
     <section id="dashboard" class="page">
       <h2>Dashboard</h2>
-      <div class="cards">
-        <div class="card">Steps: —</div>
-        <div class="card">Water: —</div>
-        <div class="card">Weight: —</div>
-      </div>
-    </section>
-
-    <section id="catalogue" class="page">
-      <h2>Catalogue</h2>
-      <div class="card">Your saved health records will appear here.</div>
-    </section>
-
-    <section id="settings" class="page">
-      <h2>Settings</h2>
-      <div class="card">Goals, preferences, and account settings.</div>
-    </section>
-
-    <section id="about" class="page">
-      <h2>About HealthSpace</h2>
-      <p class="lead">
-        HealthSpace is built to demonstrate modern UI design, clean layout,
-        and privacy-focused health tracking.
-      </p>
-    </section>
-
-  </main>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+      <div class="card">Steps, water, and weight
